@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+*.log
+
+# Build outputs
+bin/
+obj/
+dist/
+build/
+
+# IDE
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Playwright
+.playwright-mcp/
+
+# Zip
+*.zip
+
+# Data
+data/

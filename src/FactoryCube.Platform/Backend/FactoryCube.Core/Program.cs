@@ -20,7 +20,7 @@ builder.Host.UseSerilog();
 
 // DB
 builder.Services.AddDbContext<FactoryCubeDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseInMemoryDatabase("FactoryCube"));
 
 // Repositories
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
