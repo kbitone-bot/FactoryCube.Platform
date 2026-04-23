@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>FactoryCube.Platform - Project Structure</title>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; background: #0d1117; color: #c9d1d9; padding: 40px; }
+    h1 { color: #58a6ff; }
+    h2 { color: #79c0ff; margin-top: 30px; }
+    .tree { font-family: 'Consolas', monospace; font-size: 14px; line-height: 1.6; background: #161b22; padding: 20px; border-radius: 8px; }
+    .folder { color: #58a6ff; }
+    .file { color: #c9d1d9; }
+    .highlight { color: #7ee787; }
+    .stats { display: flex; gap: 20px; margin: 20px 0; }
+    .stat-box { background: #161b22; padding: 15px 25px; border-radius: 8px; text-align: center; }
+    .stat-number { font-size: 28px; font-weight: bold; color: #58a6ff; }
+    .stat-label { font-size: 12px; color: #8b949e; margin-top: 5px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th { background: #21262d; padding: 10px; text-align: left; }
+    td { padding: 10px; border-bottom: 1px solid #21262d; }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; background: #238636; color: white; }
+  </style>
+</head>
+<body>
+  <h1>🏭 FactoryCube.Platform</h1>
+  <p>산업용 PLC 및 시험장비 데이터 통합 플랫폼</p>
+
+  <div class="stats">
+    <div class="stat-box"><div class="stat-number">102</div><div class="stat-label">Total Files</div></div>
+    <div class="stat-box"><div class="stat-number">55</div><div class="stat-label">C# Files</div></div>
+    <div class="stat-box"><div class="stat-number">13</div><div class="stat-label">Python Files</div></div>
+    <div class="stat-box"><div class="stat-number">13</div><div class="stat-label">React Files</div></div>
+    <div class="stat-box"><div class="stat-number">11</div><div class="stat-label">Docs</div></div>
+  </div>
+
+  <h2>📁 프로젝트 구조</h2>
+  <div class="tree">
+FactoryCube.Platform/
+├── <span class="folder">docs/</span>
+│   ├── <span class="file">01_Architecture.md</span>
+│   ├── <span class="file">02_DatabaseSchema.sql</span>
+│   ├── <span class="file">03_API_Specification.md</span>
+│   ├── <span class="file">04_Data_Standardization.md</span>
+│   ├── <span class="file">05_Quality_Validation.md</span>
+│   ├── <span class="file">06_Synthetic_Data_Design.md</span>
+│   ├── <span class="file">07_AI_Pipeline.md</span>
+│   ├── <span class="file">08_Execution_Guide.md</span>
+│   ├── <span class="file">09_Test_Strategy.md</span>
+│   └── <span class="file">10_Future_Roadmap.md</span>
+│
+├── <span class="folder">src/FactoryCube.Platform/</span>
+│   ├── <span class="folder">Backend/</span>
+│   │   ├── <span class="file">FactoryCube.Platform.sln</span>
+│   │   ├── <span class="folder">FactoryCube.Core/</span> <span class="highlight">← .NET 8 WebApi</span>
+│   │   │   ├── <span class="folder">Domain/Entities/</span> <span class="highlight">15개 엔티티</span>
+│   │   │   ├── <span class="folder">Application/</span> <span class="highlight">DTOs, Services</span>
+│   │   │   ├── <span class="folder">Infrastructure/</span> <span class="highlight">EF Core, Jobs, PythonRunner</span>
+│   │   │   └── <span class="folder">WebApi/Controllers/</span> <span class="highlight">6개 Controller</span>
+│   │   ├── <span class="folder">FactoryCube.Python/</span> <span class="highlight">← Python Pipeline</span>
+│   │   │   ├── <span class="folder">synthetic/</span> <span class="highlight">generator.py, scenario.py</span>
+│   │   │   ├── <span class="folder">validation/</span> <span class="highlight">validator.py</span>
+│   │   │   ├── <span class="folder">features/</span> <span class="highlight">engineering.py</span>
+│   │   │   ├── <span class="folder">train/</span> <span class="highlight">trainer.py</span>
+│   │   │   └── <span class="folder">infer/</span> <span class="highlight">inference.py</span>
+│   │   └── <span class="folder">FactoryCube.Core.Tests/</span>
+│   │
+│   └── <span class="folder">Frontend/</span> <span class="highlight">← React + TypeScript</span>
+│       ├── <span class="file">package.json</span>
+│       ├── <span class="file">vite.config.ts</span>
+│       └── <span class="folder">src/</span>
+│           ├── <span class="folder">pages/</span> <span class="highlight">7개 페이지</span>
+│           ├── <span class="folder">components/</span>
+│           ├── <span class="folder">services/</span>
+│           └── <span class="folder">types/</span>
+│
+└── <span class="file">README.md</span>
+  </div>
+
+  <h2>🗄️ DB 스키마 (PostgreSQL)</h2>
+  <table>
+    <tr><th>테이블명</th><th>설명</th></tr>
+    <tr><td>fc_project</td><td>프로젝트 관리</td></tr>
+    <tr><td>fc_dataset</td><td>데이터셋 관리</td></tr>
+    <tr><td>fc_raw_record</td><td>원천 데이터 (JSONB)</td></tr>
+    <tr><td>fc_normalized_record</td><td>표준화 데이터</td></tr>
+    <tr><td>fc_timeseries_1s / 1m</td><td>초/분 단위 시계열</td></tr>
+    <tr><td>fc_quality_rule / result</td><td>품질 검증</td></tr>
+    <tr><td>fc_synthetic_job / dataset / validation</td><td>합성데이터</td></tr>
+    <tr><td>fc_ml_experiment / model_registry / run_metric</td><td>ML 파이프라인</td></tr>
+    <tr><td>fc_prediction_result</td><td>예측 결과</td></tr>
+    <tr><td>fc_dashboard_snapshot</td><td>대시보드 스냅샷</td></tr>
+  </table>
+
+  <h2>🐍 Python 합성데이터 시나리오</h2>
+  <table>
+    <tr><th>시나리오</th><th>설명</th></tr>
+    <tr><td>normal</td><td>정상 생산</td></tr>
+    <tr><td>idle</td><td>유휴 장비</td></tr>
+    <tr><td>air_cut</td><td>공회전</td></tr>
+    <tr><td>heavy_load</td><td>스핀들 부하 급증</td></tr>
+    <tr><td>memory_leak</td><td>메모리 누수</td></tr>
+    <tr><td>drift</td><td>센서 드리프트</td></tr>
+    <tr><td>spike / stuck / dropout</td><td>순간 이상 / 값 고정 / 누락</td></tr>
+  </table>
+</body>
+</html>
